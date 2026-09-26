@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08080d">
+  <title>Secret Message</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(125, 91, 180, 0.15), transparent 35%),
+        #08080d;
+      color: #f4f0f8;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .card {
+      width: min(560px, 100%);
+      padding: 42px 34px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 22px;
+      background: rgba(20, 19, 28, .88);
+      box-shadow: 0 24px 80px rgba(0,0,0,.45);
+      backdrop-filter: blur(12px);
+    }
+
+    .lock {
+      font-size: 46px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: .16em;
+      font-weight: 500;
+    }
+
+    .subtitle {
+      margin: 12px 0 30px;
+      color: #aaa5b2;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 9px;
+      text-align: left;
+      color: #d0cbd5;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid #45414d;
+      border-radius: 12px;
+      outline: none;
+      background: #0d0c12;
+      color: white;
+      font: 16px Arial, sans-serif;
+      transition: border .2s, box-shadow .2s;
+    }
+
+    input:focus {
+      border-color: #9d7bc7;
+      box-shadow: 0 0 0 3px rgba(157,123,199,.12);
+    }
+
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 14px;
+      border: 0;
+      border-radius: 12px;
+      background: #f1edf5;
+      color: #15131a;
+      font: 700 14px Arial, sans-serif;
+      letter-spacing: .08em;
+      cursor: pointer;
+      transition: transform .15s, opacity .15s;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:disabled { opacity: .55; cursor: wait; }
+
+    .status {
+      min-height: 22px;
+      margin-top: 18px;
+      font: 13px Arial, sans-serif;
+      color: #8f8996;
+    }
+
+    .status.denied { color: #e18b98; }
+    .status.granted { color: #9bd6ad; }
+    .status.checking { color: #c4b5d8; }
+
+    .shake {
+      animation: shake .38s ease;
+    }
+
+    .hidden { display: none !important; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal .heart {
+      font-size: 36px;
+      margin-bottom: 14px;
+    }
+
+    .reveal h2 {
+      margin: 0 0 24px;
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    .message {
+      text-align: left;
+      color: #ded9e2;
+      font-size: 16px;
+      line-height: 1.78;
+    }
+
+    .message p {
+      margin: 0 0 19px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      color: #716c77;
+      font: 11px Arial, sans-serif;
+      letter-spacing: .04em;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 34px 22px; }
+      h1 { font-size: 22px; }
+      .message { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section id="lockScreen">
+      <div class="lock">🔒</div>
+      <h1>SECRET MESSAGE</h1>
+      <p class="subtitle">This message is meant for someone specific.</p>
+
+      <label for="nameInput">Enter your name</label>
+      <input id="nameInput" type="text" autocomplete="off" spellcheck="false" placeholder="Your name">
+      <button id="enterButton">ENTER</button>
+
+      <div id="status" class="status">Access denied ❌</div>
+    </section>
+
+    <section id="revealScreen" class="reveal hidden">
+      <div class="heart">💌</div>
+      <h2>A message for you</h2>
+      <div id="message" class="message"></div>
+      <div class="footer">Thank you for reading.</div>
+    </section>
+  </main>
+
+  <script src="confession.js"></script>
+</body>
+</html>
